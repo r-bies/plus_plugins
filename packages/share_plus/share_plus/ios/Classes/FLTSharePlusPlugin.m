@@ -431,7 +431,7 @@ TopViewControllerForViewController(UIViewController *viewController) {
                                                 mimeType:mimeType
                                                  subject:subject]];
   }
-    if (text != nil && ![activityType hasPrefix:@"instagram"]) {
+    if (text != nil && [self canAddTextForShare]) {
     NSObject *data = [[SharePlusData alloc] initWithSubject:subject text:text];
     [items addObject:data];
   }
@@ -442,6 +442,11 @@ TopViewControllerForViewController(UIViewController *viewController) {
             atSource:origin
             toResult:result
           withResult:withResult];
+}
+
+- (BOOL)canAddTextForShare {
+    return (![self.activityType containsSubstring:@"instagram"] &&
+            ![self.activityType containsSubstring:@"tinyspeck"]);
 }
 
 @end

@@ -3,6 +3,8 @@
 name: plus_plugins
 repository: https://github.com/fluttercommunity/plus_plugins
 
+sdkPath: .fvm/flutter_sdk
+
 # Array of globs to search for packages.
 # Instead of one recursive glob, we use multiple globs to avoid
 # searching every single directory in the repo.
