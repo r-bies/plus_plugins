@@ -431,7 +431,7 @@ TopViewControllerForViewController(UIViewController *viewController) {
                                                 mimeType:mimeType
                                                  subject:subject]];
   }
-  if (text != nil) {
+    if (text != nil && ![activityType hasPrefix:@"instagram"]) {
     NSObject *data = [[SharePlusData alloc] initWithSubject:subject text:text];
     [items addObject:data];
   }
