@@ -431,10 +431,11 @@ TopViewControllerForViewController(UIViewController *viewController) {
                                                 mimeType:mimeType
                                                  subject:subject]];
   }
-    if (text != nil && [self canAddTextForShare]) {
-    NSObject *data = [[SharePlusData alloc] initWithSubject:subject text:text];
-    [items addObject:data];
-  }
+
+  // if (text != nil && [self canAddTextForShare]) {
+  //   NSObject *data = [[SharePlusData alloc] initWithSubject:subject text:text];
+  //   [items addObject:data];
+  // }
 
   [self share:items
          withSubject:subject
