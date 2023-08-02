@@ -150,22 +150,28 @@ TopViewControllerForViewController(UIViewController *viewController) {
 
 - (id)activityViewController:(UIActivityViewController *)activityViewController
          itemForActivityType:(UIActivityType)activityType {
-  if (!_path || !_mimeType) {
-    return _text;
-  }
-
+    BOOL isText = !_path || !_mimeType;
+    
   // If the shared file is an image return an UIImage for the placeholder
   // to show a preview.
   if ([activityType
-          isEqualToString:@"dev.fluttercommunity.share_plus.placeholder"] &&
-      [_mimeType hasPrefix:@"image/"]) {
-    UIImage *image = [UIImage imageWithContentsOfFile:_path];
-    return image;
+          isEqualToString:@"dev.fluttercommunity.share_plus.placeholder"]) {
+      if (isText) {
+          return _text;
+      } else if ([_mimeType hasPrefix:@"image/"]) {
+          UIImage *image = [UIImage imageWithContentsOfFile:_path];
+          return image;
+      }
+  } else {
+      if (isText) {
+          return ([self canShareText:activityType]) ? _text : nil;
+      } else {
+          // Return an NSURL for the real share to conserve the file name
+          NSURL *url = [NSURL fileURLWithPath:_path];
+          return url;
+      }
   }
-
-  // Return an NSURL for the real share to conserve the file name
-  NSURL *url = [NSURL fileURLWithPath:_path];
-  return url;
+    return nil;
 }
 
 - (NSString *)activityViewController:
@@ -235,6 +241,11 @@ TopViewControllerForViewController(UIViewController *viewController) {
   }
 
   return metadata;
+}
+
+- (BOOL)canShareText:(UIActivityType)activityType {
+    return (![activityType containsString:@"instagram"] &&
+            ![activityType containsString:@"tinyspeck"]);
 }
 
 @end
