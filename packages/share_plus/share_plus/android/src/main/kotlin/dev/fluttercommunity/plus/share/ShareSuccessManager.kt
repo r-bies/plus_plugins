@@ -19,7 +19,7 @@ internal class ShareSuccessManager(private val context: Context) : BroadcastRece
      */
     fun register() {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            context.registerReceiver(this, IntentFilter(BROADCAST_CHANNEL), android.content.Context.RECEIVER_NOT_EXPORTED)
+            context.registerReceiver(this, IntentFilter(BROADCAST_CHANNEL), 4)//android.content.Context.RECEIVER_NOT_EXPORTED)
         } else {
             context.registerReceiver(this, IntentFilter(BROADCAST_CHANNEL))
         }
