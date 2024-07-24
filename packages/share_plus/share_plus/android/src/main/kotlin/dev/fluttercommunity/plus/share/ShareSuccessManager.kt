@@ -18,7 +18,11 @@ internal class ShareSuccessManager(private val context: Context) : BroadcastRece
      * Register listener. Must be called before any share sheet is opened.
      */
     fun register() {
-        context.registerReceiver(this, IntentFilter(BROADCAST_CHANNEL), Context.RECEIVER_EXPORTED)
+        if (android.os.Build.VERSION.SDK_INT >= 34) {
+          context.registerReceiver(this, IntentFilter(BROADCAST_CHANNEL), Context.RECEIVER_EXPORTED)
+        } else {
+          context.registerReceiver(this, IntentFilter(BROADCAST_CHANNEL))
+        }
     }
 
     /**
