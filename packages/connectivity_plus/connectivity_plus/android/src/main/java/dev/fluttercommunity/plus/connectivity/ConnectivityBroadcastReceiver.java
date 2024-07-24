@@ -55,11 +55,7 @@ public class ConnectivityBroadcastReceiver extends BroadcastReceiver
           };
       connectivity.getConnectivityManager().registerDefaultNetworkCallback(networkCallback);
     } else {
-      if (android.os.Build.VERSION.SDK_INT >= 34) {
-        context.registerReceiver(this, new IntentFilter(CONNECTIVITY_ACTION), Context.RECEIVER_EXPORTED);
-      } else {
-        context.registerReceiver(this, new IntentFilter(CONNECTIVITY_ACTION));
-      }
+      context.registerReceiver(this, new IntentFilter(CONNECTIVITY_ACTION));
     }
   }
 
